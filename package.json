@@ -1,0 +1,23 @@
+{
+  "jspm": {
+    "directories": {},
+    "dependencies": {
+      "angular2": "npm:angular2@^2.0.0-alpha.30",
+      "es6-shim": "github:es-shims/es6-shim@^0.32.3",
+      "reactivex/rxjs": "github:reactivex/rxjs@master",
+      "reflect-metadata": "npm:reflect-metadata@^0.1.0",
+      "route-recognizer": "npm:route-recognizer@^0.1.5",
+      "rx-next": "github:reactivex/rxjs@^0.0.0-prealpha.1",
+      "zone.js": "npm:zone.js@^0.5.2"
+    },
+    "devDependencies": {
+      "typescript": "github:mhegazy/typescript@v1.5-beta2"
+    },
+    "overrides": {
+      "github:reactivex/rxjs@0.0.0-prealpha.1": {
+        "lib": "dist/es6",
+        "main": "RxNext.js"
+      }
+    }
+  }
+}
