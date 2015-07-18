@@ -44,7 +44,6 @@ export class RxRouter {
   }
   
   registerOutlet(name:string, view: ElementRef){
-    console.log(view)
     this.outlet = view;
   }
   
@@ -65,8 +64,7 @@ export class RxView {
     name: string;
     componentRef:ComponentRef;
     constructor(private _router:RxRouter, private _elementRef:ElementRef, private _loader:DynamicComponentLoader){
-      console.log('init',this)
-        this._router.registerOutlet(this.name, this);
+       this._router.registerOutlet(this.name, this);
     }
     show(component, bindings){
       if(this.componentRef){
