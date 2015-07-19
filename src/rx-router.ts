@@ -31,16 +31,16 @@ export class RxRouter {
   
   render(viewState){
    let [config, ...params] = viewState;
-   this.loadComponent(config.handler)
+   this.loadComponent(config.handler.component, config.handler.bindings)
    //this.state.next(views)
   }
   
-  loadComponent(component){
-    this.outlet.show(component)
+  loadComponent(component, bindings){
+    this.outlet.show(component, bindings)
   }
   
   state(name,config){
-    this.routeMatcher.add([{path: config.path, handler: config.component}]);
+    this.routeMatcher.add([{path: config.path, handler: config}]);
   }
   
   registerOutlet(name:string, view: ElementRef){
@@ -53,12 +53,9 @@ export class RxRouter {
 }
 
 
-@Component({
+@Directive({
   selector: 'rx-view',
   properties: ['name']
- })
- @View({
-   template: '<template></template>'
  })
 export class RxView {
     name: string;
@@ -67,14 +64,15 @@ export class RxView {
        this._router.registerOutlet(this.name, this);
     }
     show(component, bindings){
+      console.log(bindings)
       if(this.componentRef){
         this.componentRef.dispose();
         this.componentRef = null;
       }
-      this._loader.loadNextToLocation(component, this._elementRef, bindings)
+      this._loader.loadNextToLocation(component, this._elementRef,bindings)
         .then(componentRef => {
           this.componentRef = componentRef;
-        })
+        },(err) => console.log(err))
      
     }
 }

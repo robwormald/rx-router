@@ -4,7 +4,7 @@ import 'reflect-metadata'
 import 'es6-shim'
 
 import {RxRouter, RxView} from '../src/rx-router';
-import {Component, View, bootstrap} from 'angular2/angular2'
+import {Component, View, bootstrap, bind} from 'angular2/angular2'
 
 
 class TestModel {
@@ -53,7 +53,7 @@ class AppView {
 class DemoApp {
     constructor(router:RxRouter){
         console.log(router)
-        router.state('test',{ path: "/test", component: TestView });
+        router.state('test',{ path: "/test", component: TestView, bindings: [bind(TestModel).toValue({name: 'foobar'})]});
         router.state('app',{ path: "/app", component: AppView })
     }
 }
