@@ -6,6 +6,15 @@ import 'es6-shim'
 import {RxRouter, RxView} from '../src/rx-router';
 import {Component, View, bootstrap} from 'angular2/angular2'
 
+
+class TestModel {
+    name:string;
+    constructor(){
+        console.log('model!')
+        this.name = 'test'
+    }
+}
+
 @Component({
     selector: 'test-view'
 })
@@ -15,12 +24,18 @@ import {Component, View, bootstrap} from 'angular2/angular2'
 class TestView {}
 
 @Component({
-    selector: 'app-view'
+    selector: 'app-view',
+    viewInjector: [TestModel]
 })
 @View({
-    template: '<div>app view</div>'
+    template: '<div><h1>hello {{model.name}}</h1></div>'
 })
-class AppView {}
+class AppView {
+    model: TestModel;
+    constructor(){
+        this.model = {name: 'helo'};
+    }
+}
 
 
 @Component({
@@ -45,5 +60,5 @@ class DemoApp {
 
 
 
-bootstrap(DemoApp,[RxRouter]).catch(err => console.log(err));
+bootstrap(DemoApp,[RxRouter, TestModel]).catch(err => console.log(err));
 
