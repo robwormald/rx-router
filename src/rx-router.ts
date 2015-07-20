@@ -6,8 +6,19 @@ import RouteRecognizer from 'route-recognizer';
 
 let {Observable, Observer,Subject} = Rx;
 
-import {Directive,Component,View, Attribute, DynamicComponentLoader, ComponentRef, ElementRef, Injectable} from 'angular2/angular2'
+import {
+  Directive,
+  Component,
+  View,
+  Attribute,
+  DynamicComponentLoader,
+  ComponentRef,
+  ElementRef,
+  Injectable,
+  bind,
+  Injector} from 'angular2/angular2'
 
+console.log(Injector)
 const getHash =(url) => {
     let [host, path] = url.split('#');
     return path; 
@@ -64,12 +75,14 @@ export class RxView {
        this._router.registerOutlet(this.name, this);
     }
     show(component, bindings){
-      console.log(bindings)
       if(this.componentRef){
         this.componentRef.dispose();
         this.componentRef = null;
       }
-      this._loader.loadNextToLocation(component, this._elementRef,bindings)
+     
+      let boundBindings = Injector.resolve(bindings || [])
+      
+      this._loader.loadNextToLocation(component, this._elementRef,boundBindings)
         .then(componentRef => {
           this.componentRef = componentRef;
         },(err) => console.log(err))
